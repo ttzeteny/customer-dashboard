@@ -30,6 +30,29 @@ namespace CustomerDashboardApi.Controllers
             return Ok(customer);
         }
 
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdateCustomer(int id, Customer updatedCustomer)
+        {
+            if (id != updatedCustomer.Id)
+            {
+                return BadRequest();
+            }
+
+            var customer = await _context.Customers.FindAsync(id);
+            if (customer == null)
+            {
+                return NotFound();
+            }
+            
+            customer.Name = updatedCustomer.Name;
+            customer.Email = updatedCustomer.Email;
+            customer.Status = updatedCustomer.Status;
+            
+            await _context.SaveChangesAsync();
+
+            return Ok(customer);
+        }
+        
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteCustomer(int id)
         {

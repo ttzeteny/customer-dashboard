@@ -18,6 +18,9 @@ export class App implements OnInit {
 
   newCustomer: Customer = { id: 0, name: '', email: '', status: 'Active' };
 
+  editingCustomerId: number | null = null;
+  editingCustomer: Customer = { id: 0, name: '', email: '', status: 'Active' };
+
   ngOnInit(): void {
       this.customerService.getCustomers().subscribe({
         next: (data) => {
@@ -36,6 +39,30 @@ export class App implements OnInit {
           this.newCustomer = { id: 0, name: '', email: '', status: 'Active' };
         },
         error: (err) => console.error('Error adding customer:', err)
+      });
+    }
+  }
+
+  startEdit(customer: Customer): void {
+    this.editingCustomerId = customer.id;
+    this.editingCustomer = { ...customer };
+  }
+
+  cancelEdit(): void {
+    this.editingCustomerId = null;
+  }
+
+  saveEdit(): void {
+    if (this.editingCustomerId !== null) {
+      this.customerService.updateCustomer(this.editingCustomer).subscribe({
+        next: () => {
+          this.customers.update(prev =>
+            prev.map(c => c.id === this.editingCustomerId ? { ...this.editingCustomer} : c)
+          );
+
+          this.editingCustomerId = null;
+        },
+        error: (err) => console.error('Error updating customer:', err)
       });
     }
   }

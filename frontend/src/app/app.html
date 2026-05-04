@@ -23,19 +23,41 @@
     </thead>
     <tbody>
       @for (customer of customers(); track customer.id) {
-        <tr>
-          <td>{{ customer.id }}</td>
+      <tr>
+        <td>{{ customer.id }}</td>
+        
+        @if (editingCustomerId === customer.id) {
+          <td><input [(ngModel)]="editingCustomer.name" class="edit-input" /></td>
+          <td><input [(ngModel)]="editingCustomer.email" class="edit-input" /></td>
+          <td>
+            <select [(ngModel)]="editingCustomer.status" class="edit-input">
+              <option value="Active">Active</option>
+              <option value="Inactive">Inactive</option>
+            </select>
+          </td>
+          <td class="action-buttons">
+            <button (click)="saveEdit()" class="apply-btn">Apply</button>
+            <button (click)="cancelEdit()" class="cancel-btn">Cancel</button>
+          </td>
+        } 
+        @else {
           <td>{{ customer.name }}</td>
           <td>{{ customer.email }}</td>
-          <td>{{ customer.status }}</td>
           <td>
+            <span class="status-badge" [class.active]="customer.status === 'Active'">
+              {{ customer.status }}
+            </span>
+          </td>
+          <td class="action-buttons">
+            <button (click)="startEdit(customer)" class="edit-btn">Edit</button>
             <button (click)="deleteCustomer(customer.id)" class="delete-btn">Delete</button>
           </td>
-        </tr>
+        }
+      </tr>
       } @empty {
-        <tr>
-          <td colspan="4">No customers found.</td>
-        </tr>
+      <tr>
+        <td colspan="5" style="text-align: center;">No customers found.</td>
+      </tr>
       }
     </tbody>
   </table>
