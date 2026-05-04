@@ -1,12 +1,27 @@
-import { Component, signal } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { Component, OnInit, signal } from '@angular/core';
+import { CustomerService } from './customer.service';
+import { Customer } from './customer';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet],
+  standalone: true,
+  imports: [CommonModule],
   templateUrl: './app.html',
-  styleUrl: './app.css',
+  styleUrls: ['./app.css']
 })
-export class App {
-  protected readonly title = signal('frontend-app');
+export class App implements OnInit {
+  customers = signal<Customer[]>([]);
+
+  constructor(private customerService: CustomerService) {}
+
+  ngOnInit(): void {
+      this.customerService.getCustomers().subscribe({
+        next: (data) => {
+          console.log( 'Fetched customers:', data);
+          this.customers.set(data);
+        },
+        error: (err) => console.error('Error fetching customers:', err)
+      });
+  }
 }
