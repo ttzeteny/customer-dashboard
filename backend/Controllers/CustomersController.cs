@@ -7,28 +7,26 @@ namespace CustomerDashboardApi.Controllers
     [Route("api/[controller]")]
     public class CustomersController : ControllerBase
     {
+        private static List<Customer> _customers = new List<Customer>
+        {
+            new Customer { Id = 1, Name = "Customer1Name", Email = "Customer1Email", Status = "Active" },
+            new Customer { Id = 2, Name = "Customer2Name", Email = "Customer2Email", Status = "Inactive" }
+        };
+
         [HttpGet]
         public IActionResult GetCustomers()
         {
-            var customers = new List<Customer>
-            {
-                new Customer
-                {
-                    Id = 1,
-                    Name = "Customer1Name",
-                    Email = "Customer1Email",
-                    Status = "Active"
-                },
-                new Customer
-                {
-                    Id = 2,
-                    Name = "Customer2Name",
-                    Email = "Customer2Email",
-                    Status = "Inactive"
-                }
-            };
+            return Ok(_customers);
+        }
+
+        [HttpPost]
+        public IActionResult AddCustomer([FromBody] Customer newCustomer)
+        {
+            newCustomer.Id = _customers.Max(c => c.Id) + 1;
             
-            return Ok(customers);
+            _customers.Add(newCustomer);
+
+            return Ok(newCustomer);
         }
     }
 }

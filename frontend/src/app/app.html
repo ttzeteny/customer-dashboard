@@ -1,6 +1,16 @@
+<div class="add-customer-form">
+  <h3>Add New Customer</h3>
+  <input [(ngModel)]="newCustomer.name" placeholder="Name" />
+  <input [(ngModel)]="newCustomer.email" placeholder="Email" />
+  <select [(ngModel)]="newCustomer.status">
+    <option value="Active">Active</option>
+    <option value="Inactive">Inactive</option>
+  </select>
+  <button (click)="addCustomer()">Add Customer</button>
+</div>
+
 <div class="dashboard-container">
   <h1>Customer Dashboard</h1>
-
   <table>
     <thead>
       <tr>
