@@ -1,4 +1,4 @@
-import { Component, OnInit, signal } from '@angular/core';
+import { Component, OnInit, signal, computed } from '@angular/core';
 import { CustomerService } from './customer.service';
 import { Customer } from './customer';
 import { CommonModule } from '@angular/common';
@@ -20,6 +20,24 @@ export class App implements OnInit {
 
   editingCustomerId: number | null = null;
   editingCustomer: Customer = { id: 0, name: '', email: '', status: 'Active' };
+
+  searchTerm = signal('');
+
+  filteredCustomers = computed(() => {
+    const term = this.searchTerm().toLowerCase();
+    return this.customers().filter(c =>
+      c.name.toLowerCase().includes(term) || c.email.toLowerCase().includes(term)
+    );
+  });
+
+  totalCount = computed(() => this.customers().length);
+  activeCount = computed(() => this.customers().filter(c => c.status === 'Active').length);
+  inactiveCount = computed(() => this.customers().filter(c => c.status === 'Inactive').length);
+
+  updateSearch(event: Event) {
+    const input = event.target as HTMLInputElement;
+    this.searchTerm.set(input.value);
+  }
 
   ngOnInit(): void {
       this.customerService.getCustomers().subscribe({
