@@ -1,5 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using CustomerDashboardApi.Data;
+using Microsoft.AspNetCore.Mvc;
 using CustomerDashboardApi.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace CustomerDashboardApi.Controllers
 {
@@ -7,26 +9,25 @@ namespace CustomerDashboardApi.Controllers
     [Route("api/[controller]")]
     public class CustomersController : ControllerBase
     {
-        private static List<Customer> _customers = new List<Customer>
+        private readonly AppDbContext _context;
+
+        public CustomersController(AppDbContext context)
         {
-            new Customer { Id = 1, Name = "Customer1Name", Email = "Customer1Email", Status = "Active" },
-            new Customer { Id = 2, Name = "Customer2Name", Email = "Customer2Email", Status = "Inactive" }
-        };
+            _context = context;
+        }
 
         [HttpGet]
-        public IActionResult GetCustomers()
+        public async Task<ActionResult<IEnumerable<Customer>>> GetCustomers()
         {
-            return Ok(_customers);
+            return await _context.Customers.ToListAsync();
         }
 
         [HttpPost]
-        public IActionResult AddCustomer([FromBody] Customer newCustomer)
+        public async Task<ActionResult<Customer>> AddCustomer(Customer customer)
         {
-            newCustomer.Id = _customers.Max(c => c.Id) + 1;
-            
-            _customers.Add(newCustomer);
-
-            return Ok(newCustomer);
+            _context.Customers.Add(customer);
+            await _context.SaveChangesAsync();
+            return Ok(customer);
         }
     }
 }
