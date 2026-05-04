@@ -39,4 +39,17 @@ export class App implements OnInit {
       });
     }
   }
+
+  deleteCustomer(id: number): void {
+    if (confirm('Are you sure you want to delete this customer?')) {
+      this.customerService.deleteCustomer(id).subscribe({
+        next: () => {
+          this.customers.update(prevCustomers =>
+            prevCustomers.filter(customer => customer.id !== id)
+          );
+        },
+        error: (err) => console.error('Error deleting customer:', err)
+      });
+    }
+  }
 }

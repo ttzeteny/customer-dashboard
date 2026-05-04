@@ -18,6 +18,7 @@
         <th>Name</th>
         <th>Email</th>
         <th>Status</th>
+        <th>Actions</th>
       </tr>
     </thead>
     <tbody>
@@ -27,6 +28,9 @@
           <td>{{ customer.name }}</td>
           <td>{{ customer.email }}</td>
           <td>{{ customer.status }}</td>
+          <td>
+            <button (click)="deleteCustomer(customer.id)" class="delete-btn">Delete</button>
+          </td>
         </tr>
       } @empty {
         <tr>
