@@ -1,0 +1,35 @@
+<div class="app-layout">
+
+    <aside class="sidebar">
+        <div class="sidebar-header">
+            <h2>Dashboard</h2>
+        </div>
+
+        <nav class="sidebar-nav">
+            <a routerLink="/dashboard/customers" routerLinkActive="active-link" class="nav-item">Customers</a>
+            <a class="nav-item-disabled">Employees</a>
+            <a class="nav-item-disabled">Settings</a>
+        </nav>
+
+        <div class="sidebar-footer">
+            <a routerLink="/login" class="nav-item-logout">Logout</a>
+        </div>
+    </aside>
+
+    <div class="main-wrapper">
+
+        <header class="topbar">
+            <div class="breadcrumbs">
+                <span>Dashboard</span> / <span class="current-page">Overview</span>
+            </div>
+            <div class="user-profile">
+                <div class="avatar">A</div>
+                <span>Admin User</span>
+            </div>
+        </header>
+
+        <main class="content-area">
+            <router-outlet></router-outlet>
+        </main>
+    </div>
+</div>

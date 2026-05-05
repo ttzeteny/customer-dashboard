@@ -1,11 +1,12 @@
 * {
   font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
   font-weight: 200;
+  box-sizing:  border-box;
 }
 
 body {
   background-color: #020617;
   color: #f8fafc;
   margin: 0;
-  padding: 20px;
+  padding: 0;
 }

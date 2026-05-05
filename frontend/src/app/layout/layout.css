@@ -1,0 +1,130 @@
+.app-layout {
+  display: flex;
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;
+  background-color: #020617;
+}
+
+.sidebar {
+  width: 260px;
+  background-color: #0f172a;
+  border-right: 1px solid #1e293b;
+  display: flex;
+  flex-direction: column;
+}
+
+.sidebar-header {
+  height: 60px;
+  display: flex;
+  align-items: center;
+  padding: 0 20px;
+  border-bottom: 1px solid #1e293b;
+}
+
+.sidebar-header h2 {
+  color: #f8fafc;
+  font-size: 18px;
+  font-weight: 600;
+  margin: 0;
+}
+
+.sidebar-nav {
+  flex: 1;
+  padding: 20px 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.nav-item {
+  display: block;
+  padding: 10px 15px;
+  color: #94a3b8;
+  text-decoration: none;
+  font-size: 14px;
+  border-radius: 6px;
+  transition: all 0.2s;
+  cursor: pointer;
+}
+
+.nav-item:hover:not(.disabled) {
+  background-color: #1e293b;
+  color: #f8fafc;
+}
+
+.active-link {
+  background-color: #1e293b;
+  color: #6366f1;
+  border-left: 3px solid #6366f1;
+}
+
+.disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.sidebar-footer {
+  padding: 20px 10px;
+  border-top: 1px solid #1e293b;
+}
+
+.logout {
+  color: #ef4444;
+}
+.logout:hover {
+  background-color: rgba(239, 68, 68, 0.1);
+}
+
+.main-wrapper {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.topbar {
+  height: 60px;
+  background-color: #0f172a;
+  border-bottom: 1px solid #1e293b;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 24px;
+}
+
+.breadcrumbs {
+  color: #64748b;
+  font-size: 14px;
+}
+
+.current-page {
+  color: #f8fafc;
+  font-weight: 500;
+}
+
+.user-profile {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: #f8fafc;
+  font-size: 14px;
+}
+
+.avatar {
+  width: 32px;
+  height: 32px;
+  background-color: #6366f1;
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+}
+
+.content-area {
+  flex: 1;
+  overflow-y: auto;
+  padding: 24px;
+}
