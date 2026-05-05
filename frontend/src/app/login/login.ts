@@ -10,17 +10,17 @@ import { FormsModule } from '@angular/forms';
   styleUrl: './login.css'
 })
 export class Login {
-  email = '';
+  username = '';
   password = '';
 
   constructor(private router: Router) {}
 
   onLogin() {
-    if (this.email && this.password) {
-      console.log('Logging in with:', this.email);
+    if (this.username && this.password) {
+      console.log('Logging in with:', this.username);
       this.router.navigate(['/dashboard']);
     } else {
-      alert('Please enter your email and password.');
+      alert('Please enter your username and password.');
     }
   }
 }
